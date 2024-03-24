@@ -27,11 +27,15 @@ cor<-cor.test(rstats_tbl$comments,
          method="pearson")
 
 # Publication
+#[1] "The correlation between upvotes and comments was r(121) =.53, p = .00. This test was statistically significant."
 # created an if else statement that will print 'was' if the result is less than alpha = 0.05, else print 'was not'
 if_stat<- if (cor$p.value < 0.05){
   print("was")
 } else {
   print("was not")
 }
-# other information was taken from the cor list and rounded to the specific number of decimal places
-paste0("The correlation between upvotes and comments was r(",round(cor$parameter,0),") =", round(cor$estimate,2),", p = ", round(cor$p.value,2),". This test ", if_stat ," statistically significant.")
+#rounded ppm coefficient and pvalue based on last week's strategy
+ppm<- str_remove(formatC(cor$estimate, format="f",digits=2),"^0")
+pval <- str_remove(formatC(cor$p.value, format="f",digits=2),"^0")
+#printing statement with dynamic values
+paste0("The correlation between upvotes and comments was r(",round(cor$parameter,0),") =", ppm,", p = ", pval,". This test ", if_stat ," statistically significant.")
